@@ -1,6 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+class User(AbstractUser):
+    pass
+
+
+class ContactBook(models.Model):
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=255, null=True, blank=True)
+
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)
@@ -14,9 +24,6 @@ class Contact(models.Model):
     # labels = models.ManyToManyField
 
 
-class ContactBook(models.Model):
-    name = models.CharField(max_length=255)
-    # user = models.User ...
-    description = models.CharField(max_length=255, null=True, blank=True)
+
 
 
