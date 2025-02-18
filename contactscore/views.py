@@ -6,11 +6,6 @@ from django.urls import path
 
 # Create your views here.
 
-@login_required(login_url='login_name')
-def index_view(request):
-    return render(request, "contactscore/index.html", {"user": request.user})
-
-
 def login_view(request):
     if request.method == "GET":
         return render(request, "contactscore/login.html", {"errors": None})
@@ -22,6 +17,12 @@ def login_view(request):
         return redirect('index_name')
     else:
         return render(request, "contactscore/login.html", {"errors": "login_failed"})
+
+@login_required(login_url='login_name')
+def index_view(request):
+    return render(request, "contactscore/index.html", {"user": request.user})
+
+
 
 
 urlpatterns = [
