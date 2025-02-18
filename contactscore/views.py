@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import path
 
+from contactscore.forms import ContactForm
+
 
 # Create your views here.
 
@@ -23,9 +25,15 @@ def index_view(request):
     return render(request, "contactscore/index.html", {"user": request.user})
 
 
+@login_required(login_url='login_name')
+def add_contact_view(request):
+    form = ContactForm()
+
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form})
 
 
 urlpatterns = [
     path("login", login_view, name='login_name'),
     path("", index_view, name='index_name'),
+    path("add-contact", add_contact_view, name='add_contact_name'),
 ]
