@@ -3,3 +3,8 @@ header {
     font-size: 18px;
     font-style: italic;
 }
+
+
+header {
+    background-color: #ccc;
+}
