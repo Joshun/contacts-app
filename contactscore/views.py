@@ -39,7 +39,8 @@ def index_view(request):
 def add_contact_view(request, contact_book_id: int):
     contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
     if request.method == "POST":
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request.FILES)
+        # form.is_valid()
         contact = form.save(commit=False)
         contact.contact_book = contact_book
         contact.save()
@@ -53,7 +54,7 @@ def add_contact_view(request, contact_book_id: int):
 def edit_contact_view(request, contact_id: int):
     contact = get_object_or_404(Contact, pk=contact_id)
     if request.method == "POST":
-        form = ContactForm(request.POST, instance=contact)
+        form = ContactForm(request.POST, request.FILES, instance=contact)
         form.save()
         return redirect(contact.contact_book.view_url)
 

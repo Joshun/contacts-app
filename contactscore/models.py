@@ -32,7 +32,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=50, null=True, blank=True)
     email = models.CharField(max_length=255, null=True, blank=True)
-    photo = models.FileField()
+    photo = models.FileField(upload_to='photo_uploads')
     contact_book = models.ForeignKey('ContactBook', on_delete=models.CASCADE)
 
     # user = models.User...
@@ -41,3 +41,7 @@ class Contact(models.Model):
     @property
     def edit_url(self):
         return reverse('edit_contact_name', kwargs={"contact_id": self.pk})
+
+    @property
+    def photo_url(self):
+        return self.photo.url if self.photo else None

@@ -6,7 +6,7 @@ from contactscore.models import Contact, ContactBook
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ["name", "phone_number", "email"]
+        fields = ["name", "phone_number", "email", "photo"]
 
 class ContactBookForm(forms.ModelForm):
     class Meta:
