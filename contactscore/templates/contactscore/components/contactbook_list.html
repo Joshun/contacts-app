@@ -9,8 +9,7 @@
   <tbody>
     {% for book in contact_books %}
     <tr>
-      <!-- TODO: reverse() this -->
-      <td><a href="/view-contactbook/{{ book.id }}">{{ book.name }}</a></td>
+      <td><a href="{{ book.view_url }}">{{ book.name }}</a></td>
       <td>{{ book.description }} </td>
       <td></td>
     </tr>
