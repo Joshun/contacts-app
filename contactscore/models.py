@@ -15,7 +15,8 @@ class Contact(models.Model):
     email = models.CharField(max_length=255, null=True, blank=True)
     photo = models.FileField()
 
-    contact_book = models.ForeignKey('ContactBook', on_delete=models.CASCADE)
+
+    # contact_book = models.ForeignKey('ContactBook', on_delete=models.CASCADE)
 
     # user = models.User...
     # labels = models.ManyToManyField
