@@ -32,7 +32,6 @@ class Contact(models.Model):
     # user = models.User...
     # labels = models.ManyToManyField
 
-
-
-
-
+    @property
+    def edit_url(self):
+        return reverse('edit_contact_name', kwargs={"contact_id": self.pk})
