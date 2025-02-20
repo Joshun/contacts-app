@@ -13,3 +13,16 @@ header a, header a:hover {
     color: #fff;
     text-decoration: none;
 }
+
+.contact + .contact {
+    margin-top: 2rem;
+}
+
+.contact {
+    background-color: #ccc;
+    width: 80%;
+}
+
+.contact .fieldname {
+    font-weight: bold;
+}
