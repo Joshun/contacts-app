@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path, reverse
@@ -22,6 +22,12 @@ def login_view(request):
         return redirect('index_name')
     else:
         return render(request, "contactscore/login.html", {"errors": "login_failed"})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index_name')
+
 
 @login_required(login_url='login_name')
 def index_view(request):
@@ -84,6 +90,7 @@ def view_contactbook_view(request, contact_book_id: int):
 
 urlpatterns = [
     path("login", login_view, name='login_name'),
+    path("logout", logout_view, name='logout_name'),
     path("", index_view, name='index_name'),
     path("add-contact/<int:contact_book_id>", add_contact_view, name='add_contact_name'),
     path('edit-contact/<int:contact_id>', edit_contact_view, name='edit_contact_name'),

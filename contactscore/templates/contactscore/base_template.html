@@ -12,13 +12,14 @@
 <body>
 
 <header class="d-flex flex-row justify-content-between p-3">
-    <div>
+    <div class="logo">
         <a href="{% url 'index_name' %}">ContactsApp</a>
     </div>
     <div>
-        {% if user %}
+        {% if user.is_authenticated %}
         <i class="bi bi-person-circle"></i>
         {{ user.email }}
+        <a href="{% url 'logout_name' %}" class="logout">logout</a>
         {% endif %}
     </div>
 </header>

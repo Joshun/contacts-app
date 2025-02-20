@@ -4,15 +4,21 @@ body {
 
 header {
     font-size: 18px;
-    font-style: italic;
     background-color: #222;
     color: #fff;
 }
 
-header a, header a:hover {
-    color: #fff;
+
+
+header .logo, header .logo a {
+    font-style: italic;
     text-decoration: none;
 }
+
+header a {
+    color: #fff;
+}
+
 
 .contact + .contact {
     margin-top: 2rem;
