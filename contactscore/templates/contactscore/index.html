@@ -3,6 +3,8 @@
 
 <h1>Welcome to Contacts App!</h1>
 
+<a class="btn btn-primary" href="{% url 'add_contactbook_name' %}"><i class="bi bi-book"></i> Add new contact book</a>
+
 <a class="btn btn-primary" href="{% url 'add_contact_name' %}"><i class="bi bi-person-fill-add"></i> Add new contact</a>
 
 {% include 'contactscore/components/contact_list.html' with contacts=contacts %}
