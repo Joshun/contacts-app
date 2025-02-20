@@ -50,10 +50,10 @@ def edit_contact_view(request, contact_id: int):
     if request.method == "POST":
         form = ContactForm(request.POST, instance=contact)
         form.save()
-        return redirect('index_name')
+        return redirect(contact.contact_book.view_url)
 
     form = ContactForm(instance=contact)
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Edit contact", "from": reverse('index_name') })
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Edit contact", "from": contact.contact_book.view_url })
 
 
 @login_required()
