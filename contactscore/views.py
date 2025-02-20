@@ -27,6 +27,11 @@ def index_view(request):
 
 @login_required(login_url='login_name')
 def add_contact_view(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        form.save()
+        return redirect('index_name')
+
     form = ContactForm()
 
     return render(request, "contactscore/form.html", {"user": request.user, "form": form})
