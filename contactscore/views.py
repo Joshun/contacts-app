@@ -64,9 +64,11 @@ def edit_contact_view(request, contact_id: int):
 @login_required()
 def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
     form_args = {}
+    action_text = "Add new"
     if contact_book_id is not None:
         contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
         form_args["instance"] = contact_book
+        action_text = "Edit"
 
     if request.method == "POST":
         form_args["data"] = request.POST
@@ -77,7 +79,7 @@ def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
         return redirect('index_name')
 
     form = ContactBookForm(**form_args)
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact book", "from": reverse('index_name')})
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": f"{action_text} contact book", "from": reverse('index_name')})
 
 
 @login_required()
