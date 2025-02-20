@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import path
 
 from contactscore.forms import ContactForm, ContactBookForm
-from contactscore.models import Contact
+from contactscore.models import Contact, ContactBook
 
 
 # Create your views here.
@@ -24,7 +24,8 @@ def login_view(request):
 @login_required(login_url='login_name')
 def index_view(request):
     contacts = Contact.objects.all()
-    return render(request, "contactscore/index.html", {"user": request.user, "contacts": contacts})
+    contact_books = ContactBook.objects.all()
+    return render(request, "contactscore/index.html", {"user": request.user, "contact_books": contact_books, "contacts": contacts})
 
 
 @login_required(login_url='login_name')
@@ -50,10 +51,16 @@ def add_contactbook_view(request):
     form = ContactBookForm()
     return render(request, "contactscore/form.html", {"user": request.user, "form": form})
 
+@login_required()
+def view_contactbook_view(request, contact_book_id: int):
+    contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
+    return render(request, "contactscore/contactbook.html", {"user": request.user, "contact_book": contact_book})
+
 
 urlpatterns = [
     path("login", login_view, name='login_name'),
     path("", index_view, name='index_name'),
     path("add-contact", add_contact_view, name='add_contact_name'),
     path("add-contactbook", add_contactbook_view, name='add_contactbook_name'),
+    path("view-contactbook/<int:contact_book_id>", view_contactbook_view, name='view_contactbook_name')
 ]

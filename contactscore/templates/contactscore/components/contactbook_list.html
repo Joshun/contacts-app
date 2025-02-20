@@ -1,0 +1,19 @@
+<table class="table mt-2">
+  <thead>
+    <tr>
+      <th>Book</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in contact_books %}
+    <tr>
+      <!-- TODO: reverse() this -->
+      <td><a href="/view-contactbook/{{ book.id }}">{{ book.name }}</a></td>
+      <td>{{ book.description }} </td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
