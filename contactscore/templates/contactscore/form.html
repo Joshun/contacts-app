@@ -5,5 +5,8 @@
 <form>
     {% csrf_token %}
     {{ form | crispy }}
+
+    <input type="submit" class="btn btn-primary" value="Add contact">
+    <a href="{% url 'index_name' %}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock %}
