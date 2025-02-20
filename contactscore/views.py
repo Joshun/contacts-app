@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import path
 
 from contactscore.forms import ContactForm
+from contactscore.models import Contact
 
 
 # Create your views here.
@@ -22,7 +23,8 @@ def login_view(request):
 
 @login_required(login_url='login_name')
 def index_view(request):
-    return render(request, "contactscore/index.html", {"user": request.user})
+    contacts = Contact.objects.all()
+    return render(request, "contactscore/index.html", {"user": request.user, "contacts": contacts})
 
 
 @login_required(login_url='login_name')
