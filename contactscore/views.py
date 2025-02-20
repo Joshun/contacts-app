@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import path
+from django.urls import path, reverse
 
 from contactscore.forms import ContactForm, ContactBookForm
 from contactscore.models import Contact, ContactBook
@@ -39,7 +39,7 @@ def add_contact_view(request, contact_book_id: int):
         return redirect('index_name')
 
     form = ContactForm()
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form})
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "from": contact_book.view_url })
 
 
 @login_required()
@@ -52,7 +52,7 @@ def add_contactbook_view(request):
         return redirect('index_name')
 
     form = ContactBookForm()
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form})
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "from": reverse('index_name')})
 
 @login_required()
 def view_contactbook_view(request, contact_book_id: int):
