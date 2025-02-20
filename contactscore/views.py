@@ -43,7 +43,7 @@ def add_contact_view(request, contact_book_id: int):
         contact = form.save(commit=False)
         contact.contact_book = contact_book
         contact.save()
-        return redirect('index_name')
+        return redirect(contact_book.view_url)
 
     form = ContactForm()
     return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact", "from": contact_book.view_url })
