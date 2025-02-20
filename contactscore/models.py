@@ -21,6 +21,12 @@ class ContactBook(models.Model):
         return reverse('add_contact_name', kwargs={"contact_book_id": self.pk})
 
 
+    class ContactBookQuerySet(models.QuerySet):
+        def for_user(self, user: User):
+            return self.filter(user=user)
+
+    objects = ContactBookQuerySet.as_manager()
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)

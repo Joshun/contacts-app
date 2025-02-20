@@ -31,9 +31,8 @@ def logout_view(request):
 
 @login_required(login_url='login_name')
 def index_view(request):
-    contacts = Contact.objects.all()
-    contact_books = ContactBook.objects.all()
-    return render(request, "contactscore/index.html", {"user": request.user, "contact_books": contact_books, "contacts": contacts})
+    contact_books = ContactBook.objects.for_user(request.user)
+    return render(request, "contactscore/index.html", {"user": request.user, "contact_books": contact_books})
 
 
 @login_required(login_url='login_name')
