@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'contactscore.apps.ContactscoreConfig',
+    'contactsapi.apps.ContactsapiConfig',
     'crispy_forms',
     'crispy_bootstrap5',
     'django.contrib.admin',
