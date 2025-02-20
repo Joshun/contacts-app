@@ -3,4 +3,11 @@
 
 Contact book {{ contact_book.name }}
 
+
+<!-- TODO: reverse -->
+<a class="btn btn-primary" href="/add-contact/{{contact_book.id}}"><i class="bi bi-person-fill-add"></i> Add new contact</a>
+
+{% include 'contactscore/components/contact_list.html' with contacts=contacts %}
+
+
 {% endblock %}

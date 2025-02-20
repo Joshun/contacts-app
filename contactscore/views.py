@@ -29,10 +29,13 @@ def index_view(request):
 
 
 @login_required(login_url='login_name')
-def add_contact_view(request):
+def add_contact_view(request, contact_book_id: int):
+    contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
     if request.method == "POST":
         form = ContactForm(request.POST)
-        form.save()
+        contact = form.save(commit=False)
+        contact.contact_book = contact_book
+        contact.save()
         return redirect('index_name')
 
     form = ContactForm()
@@ -54,13 +57,14 @@ def add_contactbook_view(request):
 @login_required()
 def view_contactbook_view(request, contact_book_id: int):
     contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
-    return render(request, "contactscore/contactbook.html", {"user": request.user, "contact_book": contact_book})
+    contacts = contact_book.contact_set.all()
+    return render(request, "contactscore/contactbook.html", {"user": request.user, "contact_book": contact_book, "contacts": contacts})
 
 
 urlpatterns = [
     path("login", login_view, name='login_name'),
     path("", index_view, name='index_name'),
-    path("add-contact", add_contact_view, name='add_contact_name'),
+    path("add-contact/<int:contact_book_id>", add_contact_view, name='add_contact_name'),
     path("add-contactbook", add_contactbook_view, name='add_contactbook_name'),
     path("view-contactbook/<int:contact_book_id>", view_contactbook_view, name='view_contactbook_name')
 ]
