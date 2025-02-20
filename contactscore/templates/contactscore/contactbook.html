@@ -1,10 +1,11 @@
 {% extends "contactscore/base_template.html" %}
 {% block maincontent %}
 
-Contact book {{ contact_book.name }}
+<h1>{{ contact_book.name }}</h1>
 
 
 <a class="btn btn-primary" href="{{ contact_book.add_contact_url }}"><i class="bi bi-person-fill-add"></i> Add new contact</a>
+<a class="btn btn-secondary" href="{% url 'index_name' %}"><i class="bi bi-arrow-bar-left"></i> Contact book list</a>
 
 {% include 'contactscore/components/contact_list.html' with contacts=contacts %}
 

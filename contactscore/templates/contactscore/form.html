@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block maincontent %}
+<h1>{{ form_title }}</h1>
 <form method="POST">
     {% csrf_token %}
     {{ form | crispy }}

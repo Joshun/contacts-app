@@ -39,7 +39,7 @@ def add_contact_view(request, contact_book_id: int):
         return redirect('index_name')
 
     form = ContactForm()
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "from": contact_book.view_url })
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact", "from": contact_book.view_url })
 
 
 @login_required()
@@ -52,7 +52,7 @@ def add_contactbook_view(request):
         return redirect('index_name')
 
     form = ContactBookForm()
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "from": reverse('index_name')})
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact book", "from": reverse('index_name')})
 
 @login_required()
 def view_contactbook_view(request, contact_book_id: int):
