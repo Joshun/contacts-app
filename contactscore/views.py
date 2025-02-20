@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -43,16 +45,23 @@ def add_contact_view(request, contact_book_id: int):
 
 
 @login_required()
-def add_contactbook_view(request):
+def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
+    form_args = {}
+    if contact_book_id is not None:
+        contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
+        form_args["instance"] = contact_book
+
     if request.method == "POST":
-        form = ContactBookForm(request.POST)
+        form_args["data"] = request.POST
+        form = ContactBookForm(**form_args)
         contact_book = form.save(commit=False)
         contact_book.user = request.user
         contact_book.save()
         return redirect('index_name')
 
-    form = ContactBookForm()
+    form = ContactBookForm(**form_args)
     return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact book", "from": reverse('index_name')})
+
 
 @login_required()
 def view_contactbook_view(request, contact_book_id: int):
@@ -65,6 +74,7 @@ urlpatterns = [
     path("login", login_view, name='login_name'),
     path("", index_view, name='index_name'),
     path("add-contact/<int:contact_book_id>", add_contact_view, name='add_contact_name'),
-    path("add-contactbook", add_contactbook_view, name='add_contactbook_name'),
+    path("add-contactbook", add_edit_contactbook_view, name='add_contactbook_name'),
+    path("edit-contactbook/<int:contact_book_id>",add_edit_contactbook_view,  name='edit_contactbook_name'),
     path("view-contactbook/<int:contact_book_id>", view_contactbook_view, name='view_contactbook_name')
 ]
