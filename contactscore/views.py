@@ -45,6 +45,18 @@ def add_contact_view(request, contact_book_id: int):
 
 
 @login_required()
+def edit_contact_view(request, contact_id: int):
+    contact = get_object_or_404(Contact, pk=contact_id)
+    if request.method == "POST":
+        form = ContactForm(request.POST, instance=contact)
+        form.save()
+        return redirect('index_name')
+
+    form = ContactForm(instance=contact)
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Edit contact", "from": reverse('index_name') })
+
+
+@login_required()
 def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
     form_args = {}
     if contact_book_id is not None:
@@ -74,6 +86,8 @@ urlpatterns = [
     path("login", login_view, name='login_name'),
     path("", index_view, name='index_name'),
     path("add-contact/<int:contact_book_id>", add_contact_view, name='add_contact_name'),
+    path('edit-contact/<int:contact_id>', edit_contact_view, name='edit_contact_name'),
+
     path("add-contactbook", add_edit_contactbook_view, name='add_contactbook_name'),
     path("edit-contactbook/<int:contact_book_id>",add_edit_contactbook_view,  name='edit_contactbook_name'),
     path("view-contactbook/<int:contact_book_id>", view_contactbook_view, name='view_contactbook_name')
