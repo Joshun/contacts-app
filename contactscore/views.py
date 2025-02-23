@@ -40,11 +40,13 @@ def add_contact_view(request, contact_book_id: int):
     contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
     if request.method == "POST":
         form = ContactForm(request.POST, request.FILES)
-        # form.is_valid()
-        contact = form.save(commit=False)
-        contact.contact_book = contact_book
-        contact.save()
-        return redirect(contact_book.view_url)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.contact_book = contact_book
+            contact.save()
+            return redirect(contact_book.view_url)
+        else:
+            return render(request, "contactscore/form.html", {"user": request.user, "form": form, "errors": form.errors})
 
     form = ContactForm()
     return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": "Add", "form_title": "Add new contact", "from": contact_book.view_url })
@@ -55,8 +57,11 @@ def edit_contact_view(request, contact_id: int):
     contact = get_object_or_404(Contact, pk=contact_id)
     if request.method == "POST":
         form = ContactForm(request.POST, request.FILES, instance=contact)
-        form.save()
-        return redirect(contact.contact_book.view_url)
+        if form.is_valid():
+            form.save()
+            return redirect(contact.contact_book.view_url)
+        else:
+            return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": "Edit", "form_title": "Edit contact", "from": contact.contact_book.view_url })
 
     form = ContactForm(instance=contact)
     return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": "Edit", "form_title": "Edit contact", "from": contact.contact_book.view_url })

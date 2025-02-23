@@ -1,3 +1,4 @@
+from django.core.validators import EmailValidator
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -33,7 +34,7 @@ class Contact(models.Model):
     mobile_number = models.CharField(max_length=50, null=True, blank=True)
     home_number = models.CharField(max_length=50, null=True, blank=True)
     work_number = models.CharField(max_length=50, null=True, blank=True)
-    email = models.CharField(max_length=255, null=True, blank=True)
+    email = models.CharField(max_length=255, null=True, blank=True, validators=[EmailValidator(message="Invalid email address.")])
     address = models.TextField(null=True, blank=True)
     photo = models.FileField(upload_to='photo_uploads', blank=True, null=True)
     contact_book = models.ForeignKey('ContactBook', on_delete=models.CASCADE)
