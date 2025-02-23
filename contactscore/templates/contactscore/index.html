@@ -6,7 +6,7 @@
 <div class="d-flex flex-row gap-3 mb-5 justify-content-between">
     <div class="card flex-grow-1">
         <div class="card-body">
-            <h2>2</h2>
+            <h2 class="total-contact-books">--</h2>
         </div>
         <div class="card-footer">
             Total contact books
@@ -14,7 +14,7 @@
     </div>
     <div class="card flex-grow-1">
         <div class="card-body">
-            <h2>3</h2>
+            <h2 class="total-contacts">--</h2>
         </div>
         <div class="card-footer">
             Total contacts
@@ -28,5 +28,12 @@
 
 {% include 'contactscore/components/contactbook_list.html' with contact_books=contact_books %}
 <!--{% include 'contactscore/components/contact_list.html' with contacts=contacts %}-->
+
+<script type="text/javascript">
+    loadHomepageTotals().then(res => {
+        document.querySelector('.total-contact-books').innerHTML = res.contact_books;
+        document.querySelector('.total-contacts').innerHTML = res.contacts;
+    });
+</script>
 
 {% endblock %}
