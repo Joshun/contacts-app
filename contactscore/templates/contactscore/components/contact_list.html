@@ -10,23 +10,23 @@
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname">Email</div>
-            <div>{{ contact.email }}</div>
+            <div>{{ contact.email|default_if_none:"--"}}</div>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname">Mobile number</div>
-            <div>{{ contact.mobile_number }}</div>
+            <div>{{ contact.mobile_number|default_if_none:"--" }}</div>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname">Home number</div>
-            <div>{{ contact.home_number }}</div>
+            <div>{{ contact.home_number|default_if_none:"--" }}</div>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname">Work number</div>
-            <div>{{ contact.work_number }}</div>
+            <div>{{ contact.work_number|default_if_none:"--" }}</div>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname">Address</div>
-            <div>{{ contact.address }}</div>
+            <div>{{ contact.address|default_if_none:"--" }}</div>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="fieldname"></div>
