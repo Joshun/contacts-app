@@ -30,8 +30,11 @@ class ContactBook(models.Model):
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=50, null=True, blank=True)
+    mobile_number = models.CharField(max_length=50, null=True, blank=True)
+    home_number = models.CharField(max_length=50, null=True, blank=True)
+    work_number = models.CharField(max_length=50, null=True, blank=True)
     email = models.CharField(max_length=255, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
     photo = models.FileField(upload_to='photo_uploads', blank=True, null=True)
     contact_book = models.ForeignKey('ContactBook', on_delete=models.CASCADE)
 
