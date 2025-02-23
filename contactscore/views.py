@@ -47,7 +47,7 @@ def add_contact_view(request, contact_book_id: int):
         return redirect(contact_book.view_url)
 
     form = ContactForm()
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Add new contact", "from": contact_book.view_url })
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": "Add", "form_title": "Add new contact", "from": contact_book.view_url })
 
 
 @login_required()
@@ -59,7 +59,7 @@ def edit_contact_view(request, contact_id: int):
         return redirect(contact.contact_book.view_url)
 
     form = ContactForm(instance=contact)
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": "Edit contact", "from": contact.contact_book.view_url })
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": "Edit", "form_title": "Edit contact", "from": contact.contact_book.view_url })
 
 
 @login_required()
@@ -70,6 +70,9 @@ def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
         contact_book = get_object_or_404(ContactBook, pk=contact_book_id)
         form_args["instance"] = contact_book
         action_text = "Edit"
+        action_btn = "Edit"
+    else:
+        action_btn = "Add"
 
     if request.method == "POST":
         form_args["data"] = request.POST
@@ -80,7 +83,7 @@ def add_edit_contactbook_view(request, contact_book_id: Optional[int] = None):
         return redirect('index_name')
 
     form = ContactBookForm(**form_args)
-    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "form_title": f"{action_text} contact book", "from": reverse('index_name')})
+    return render(request, "contactscore/form.html", {"user": request.user, "form": form, "action": action_btn, "form_title": f"{action_text} contact book", "from": reverse('index_name')})
 
 
 @login_required()

@@ -7,7 +7,7 @@
     {% csrf_token %}
     {{ form | crispy }}
 
-    <input type="submit" class="btn btn-primary" value="Add">
+    <input type="submit" class="btn btn-primary" value="{{ action }}">
     <a href="{{ from }}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock %}
