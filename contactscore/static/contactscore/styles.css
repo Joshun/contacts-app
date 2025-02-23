@@ -32,3 +32,8 @@ header a {
 .contact .fieldname {
     font-weight: bold;
 }
+
+
+img.contact-photo {
+    max-height: 240px;
+}
